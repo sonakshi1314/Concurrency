@@ -1,0 +1,41 @@
+1. Java programming language works very efficiently with multithreaded applications which require the tasks to be executed concurrently in a thread. It becomes difficult for any application to execute a large number of threads simultaneously. So to overcome this problem, Java comes with ExecutorService which is a sub-interface of the Executors framework
+
+2. The executor : is a framework helps you in creating and managing threads in an application. The executor framework helps you in the following tasks.
+
+   Thread Creation: It provides a variety of methods for the creation of threads that helps in running your applications concurrently.
+
+   Thread Management: It also manages the thread life cycle. You need not worry if the thread is active, busy or dead before submitting the task for execution.
+
+   Task Submission And Execution: Executor framework provides methods for task submission in the thread pool, It also gives the power to decide if the thread will be executed or not.
+
+3. ExecutorService  : It is a sub-interface of the executor framework that adds certain functionalities to manage the thread life cycle of an application. It also provides a submit() method which can accept both runnable and callable objects.
+
+4. There are various thread pools in java:
+
+   Single Thread Executor :(LinkedBlockingQueue) A thread pool with only one thread. So all the submitted tasks will be executed sequentially. Method : Executors.newSingleThreadExecutor() . This is likedBlockingqueue and not ArrayBLockingQueue because array is fixed in size . Since thread poll itself is fixed we cant have no of task to be limited . So we need storage area that can dynamically increase .
+
+   Cached Thread Pool : (SynchronousQueue) A thread pool that creates as many threads it needs to execute the task in parallel. The old available threads will be reused for the new tasks. If a thread is not used during 60 seconds, it will be terminated and removed from the pool. Method : Executors.newCachedThreadPool()
+
+   Fixed Thread Pool : (LinkedBlockingQueue) A thread pool with a fixed number of threads. If a thread is not available for the task, the task is put in queue waiting for an other task to ends. Method : Executors.newFixedThreadPool()
+
+   Scheduled Thread Pool : (DelayedWorkQueue)A thread pool made to schedule future task. Method : Executors.newScheduledThreadPool()
+
+   Single Thread Scheduled Pool : A thread pool with only one thread to schedule future task. Method : Executors.newSingleThreadScheduledExecutor()
+
+ 5. shutdown mechanism :
+  executorService.shutdown() --> initiate shutdown , it will not immediately shutdown the whole executor down .as there might be lot of task that were submitted to the executor service . It means any new task that we will submit to executor , executor will reject that but if we have task in BlockingQueue or what ever threads are running then that will get execute .
+  executorService.isShutdown() --> return true , since shutdown has began .
+  executorService.isTerminated() --> return true , if all task are completed including queued once.
+  executorService.shutdownNow() --> initiates shutdown and executes all the tasks that were running by threads but will not executes the tasks that were in blockingQueue and return the list of task that were in blockingQueue .List<Runnable> run=service.shutdownNow()
+
+6. Asynchronous operation
+  Future class --> java 5 (represent future result of asynchronous computation)
+    drawback: 1. can not be chained  -->if we are calling a particular service and after that service return result we want some long running operation to go on that and we want to change the future and this is not possible .
+      2. No manual completion -> lets we have weather api , which is not responding , so in this case we need cached data but future does not provide this feature that we can complete it manually .
+      3 . can not be combined --> we have n service and after getting there results we want to combine these service , this is not easily possible by future .
+      4. NO exception handling
+
+    CompletableFuture --> java 8 . It implements future and CompletionStage interfaces.f
+
+
+

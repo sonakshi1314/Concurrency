@@ -38,4 +38,12 @@
     CompletableFuture --> java 8 . It implements future and CompletionStage interfaces.f
 
 
+  7.  Asynchronous API
+  Expensive Threads --> 1 thread =1 Operating system thread . so we cant have many threads , if we do so it will show out of memory error
+  Blocking IO Operations --> IO operation take time , they will block the threads and to have threads we need to create more threads .
+  These 2 problems limits the scalability od application. Hence we need non blocking IO(Java NIO) and asynchronous API.(by callbacks)
 
+8. condition.signalALl() --> all threads waiting for that particular condition will come in runnable state but if we call condition.signal() then only first thread which get blocked for the particular condition gets blocked .
+   spurious wake ups--> some time thread will come out of the wait state without meeting any conditions . so we should always try to put it in while loop .while(count==0){added.await()}
+
+9. Lock --> restrict the access of multiple threads on a shared resource
